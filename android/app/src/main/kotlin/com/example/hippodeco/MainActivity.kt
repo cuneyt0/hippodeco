@@ -1,4 +1,4 @@
-package com.example.hippodeco
+package com.hippodeco
 
 import io.flutter.embedding.android.FlutterActivity
 
