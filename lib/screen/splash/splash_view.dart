@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:hippodeco/screen/hidden_drawer/hidden_drawer_view.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+class SplashView extends StatefulWidget {
+  const SplashView({super.key});
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  State<SplashView> createState() => _SplashViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _SplashViewState extends State<SplashView> {
   late WebViewController controller;
+
   bool isLoading = false;
 
   @override
   void dispose() {
     super.dispose();
     isLoading = false;
-    controller.clearCache();
   }
 
   @override
@@ -62,33 +63,33 @@ class _HomeViewState extends State<HomeView> {
 
     debugPrint('Hippodeco Page finished loading: $url');
     setState(() {});
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => HiddenDrawerMenuView(
+          controller: controller,
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          body: isLoading == false
-              ? _splash()
-              : WebViewWidget(controller: controller)),
-    );
-  }
-
-  Widget _splash() {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Image.asset(
-          "assets/images/hippodeco_logo.png",
-          color: Colors.green,
-        ),
-        const Center(
-          child: CircularProgressIndicator.adaptive(
-            backgroundColor: Colors.green,
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+    return Scaffold(
+      body: Stack(
+        alignment: Alignment.center,
+        children: [
+          Image.asset(
+            "assets/images/hippodeco_logo.png",
+            color: Colors.green,
           ),
-        ),
-      ],
+          const Center(
+            child: CircularProgressIndicator.adaptive(
+              backgroundColor: Colors.green,
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

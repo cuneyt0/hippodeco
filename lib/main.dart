@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:hippodeco/screen/home/home_view.dart';
+import 'package:hippodeco/screen/home/android_home_view.dart';
+import 'package:hippodeco/screen/splash/splash_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,7 +36,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomeView(),
+      home: Platform.isIOS ? const SplashView() : const AndroidHomeView(),
     );
   }
 }
